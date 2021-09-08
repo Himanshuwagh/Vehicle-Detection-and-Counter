@@ -12,6 +12,13 @@ This sample project has more than just counting vehicles, here are the additiona
 - Detection of the vehicles.
 - Prediction of approximate vehicle size
 
+### Frame Differencing
+A video is a set of frames stacked together in the right sequence. So, when we see an object moving in a video, it means that the object is at a different location at every consecutive frame.
+
+### Finding Contours
+The contours are used to identify the shape of an area in the image having the same color or intensity. Contours are like boundaries around regions of interest. So, if we apply contours on the image after the thresholding step, we would get the result
+
+The white regions have been surrounded by grayish boundaries which are nothing but contours. We can easily get the coordinates of these contours. This means we can get the locations of the highlighted regions.
 
 
 
