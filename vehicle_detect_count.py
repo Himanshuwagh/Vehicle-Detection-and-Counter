@@ -38,16 +38,18 @@ ret, frame2 = cap.read()
 while ret:
     d = cv2.absdiff(frame1, frame2)
     grey = cv2.cvtColor(d, cv2.COLOR_BGR2GRAY)
-    # blur = cv2.GaussianBlur(grey,(5,5),0)
     blur = cv2.GaussianBlur(grey, (5, 5), 0)
-    # ret , th = cv2.threshold(blur,20,255,cv2.THRESH_BINARY)
     ret, th = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
     dilated = cv2.dilate(th, np.ones((3, 3)))
+    
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2, 2))
 
     # Fill any small holes
     closing = cv2.morphologyEx(dilated, cv2.MORPH_CLOSE, kernel)
+    
+    # cv2.CHAIN_APPROX_SIMPLE removes all redundant points and compresses the contour, thereby saving memory.
     contours, h = cv2.findContours(closing, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    
     for (i, c) in enumerate(contours):
         (x, y, w, h) = cv2.boundingRect(c)
         contour_valid = (w >= min_contour_width) and (
